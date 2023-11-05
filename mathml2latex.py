@@ -5,7 +5,7 @@ import re
 import os
 import sys
 from lxml import etree
-from unicode_map import unicode_map
+from unicode_map import UNICODE_MAP
 
 # MathML to LaTeX conversion with XSLT from Vasil Yaroshevich
 base_path = os.path.dirname(os.path.realpath(__file__))
@@ -21,7 +21,7 @@ def mathml2latex(mathml_block):
 
 def unicode2latex(latex_block):
     latex_text = str(latex_block, 'utf-8').encode('ascii', 'backslashreplace')
-    for utf_code, latex_code in unicode_map.items():
+    for utf_code, latex_code in UNICODE_MAP.items():
         latex_text = str(latex_text).replace(utf_code, latex_code)
     latex_text = latex_text.replace('\\\\', '\\')                          # "\\" --> "\"
     latex_text = re.sub(r'\\textcolor\[rgb\]\{[0-9.,]+\}', '', latex_text) # "\textcolor[rgb]{...}" --> ""
